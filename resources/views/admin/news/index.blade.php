@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Berita - Eimei Highschool</title>
+    <title>Panel Admin - Eimei Highschool</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -31,7 +31,7 @@
                 <!-- Main Menu -->
                 <div class="mb-4">
                     <a href="{{ route('admin.dashboard') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
-                        <i class="bi bi-grid"></i> Dashboard
+                        <i class="bi bi-grid-fill"></i> Dashboard
                     </a>
                 </div>
 
@@ -39,8 +39,7 @@
                 <div class="mb-4">
                     <div class="text-dark fw-bold mb-3" style="font-size: 1.05rem;">Konten</div>
                     <div class="d-flex flex-column gap-2">
-                        <!-- Menu Berita Aktif (Hitam) -->
-                        <a href="#" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.news.index') }}" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
                         <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
@@ -76,23 +75,9 @@
                     </h1>
                     <p class="text-secondary small mb-0">Eimei Highschool</p>
                 </div>
-                <a href="#" class="btn btn-dark rounded-3 px-4 py-2 fw-semibold">
+                <a href="{{ route('admin.news.create') }}" class="btn btn-dark rounded-3 px-4 py-2 fw-semibold">
                     Tambah berita
                 </a>
-            </div>
-
-            <!-- Dynamic Category Filters (Pill Buttons) -->
-            <div class="d-flex flex-wrap gap-2 mb-4">
-                <a href="{{ request()->fullUrlWithQuery(['kategori' => null]) }}" 
-                   class="btn-category-pill {{ !request('kategori') ? 'active' : '' }}">
-                    Semua foto
-                </a>
-                @foreach ($categories as $cat)
-                    <a href="{{ request()->fullUrlWithQuery(['kategori' => $cat->slug]) }}" 
-                       class="btn-category-pill {{ request('kategori') == $cat->slug ? 'active' : '' }}">
-                        {{ $cat->nama ?? $cat->name }}
-                    </a>
-                @endforeach
             </div>
 
             <!-- Alert Notifikasi -->
@@ -103,9 +88,25 @@
                 </div>
             @endif
 
-            <!-- Grid Card Berita -->
+            <!-- Filter Kategori (Pill Buttons Custom) -->
+            @if (isset($categories) && count($categories) > 0)
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="{{ route('admin.news.index') }}" 
+                    class="btn btn-pill {{ !request('kategori') ? 'btn-pill-active' : 'btn-pill-outline' }}">
+                        Semua foto
+                    </a>
+                    @foreach ($categories as $cat)
+                        <a href="{{ route('admin.news.index', ['kategori' => $cat->slug]) }}" 
+                        class="btn btn-pill {{ request('kategori') == $cat->slug ? 'btn-pill-active' : 'btn-pill-outline' }}">
+                            {{ $cat->nama ?? $cat->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+
+            <!-- Grid Cards -->
             <div class="row g-4">
-                @forelse ($news as $item)
+                @forelse ($galleries as $item)
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="card admin-gallery-card h-100">
                             <!-- Image container with category overlay -->
@@ -122,11 +123,11 @@
                                 
                                 <!-- Action Buttons -->
                                 <div class="d-flex gap-2">
-                                    <a href="#" class="btn btn-dark btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-1 py-1">
+                                    <a href="{{ route('galleries.edit', $item->id) }}" class="btn btn-dark btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-1 py-1">
                                         <i class="bi bi-pencil-square" style="font-size: 0.8rem;"></i> Ubah
                                     </a>
                                     
-                                    <form action="#" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?')">
+                                    <form action="{{ route('galleries.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
@@ -139,15 +140,15 @@
                     </div>
                 @empty
                     <div class="col-12 text-center py-5 text-muted">
-                        Belum ada berita yang ditambahkan.
+                        Belum ada item galeri yang diunggah.
                     </div>
                 @endforelse
             </div>
 
             <!-- Pagination -->
-            @if (method_exists($news, 'hasPages') && $news->hasPages())
+            @if (method_exists($galleries, 'hasPages') && $galleries->hasPages())
                 <div class="d-flex justify-content-center mt-5">
-                    {{ $news->links('pagination::bootstrap-5') }}
+                    {{ $galleries->links('pagination::bootstrap-5') }}
                 </div>
             @endif
 

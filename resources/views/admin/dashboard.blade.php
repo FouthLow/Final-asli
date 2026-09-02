@@ -39,7 +39,7 @@
                 <div class="mb-4">
                     <div class="text-dark fw-bold mb-3" style="font-size: 1.05rem;">Konten</div>
                     <div class="d-flex flex-column gap-2">
-                        <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href=" {{ route('admin.news.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
                         <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">

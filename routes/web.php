@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -20,7 +21,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [GalleryController::class, 'index'])->name('admin.dashboard');
-    
+
+    Route::resource('news', NewsController::class)->names('admin.news');
+
     // CRUD Galleries (tanpa method index karena index dipake buat dashboard)
     Route::resource('galleries', GalleryController::class)->except(['index']);
     
