@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin - Eimei Highschool</title>
+    <title>Kelola Guru - Eimei Highschool</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -30,7 +30,7 @@
 
                 <!-- Main Menu -->
                 <div class="mb-4">
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                         <i class="bi bi-grid-fill"></i> Dashboard
                     </a>
                 </div>
@@ -39,10 +39,10 @@
                 <div class="mb-4">
                     <div class="text-dark fw-bold mb-3" style="font-size: 1.05rem;">Konten</div>
                     <div class="d-flex flex-column gap-2">
-                        <a href=" {{ route('admin.news.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.news.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
-                        <a href=" {{ route('admin.guru.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.guru.index') }}" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person-badge"></i> Guru
                         </a>
                         <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
@@ -67,12 +67,17 @@
         <!-- Main Content Area -->
         <main class="flex-grow-1 p-4 p-md-5">
             
-            <!-- Header Judul -->
-            <div class="mb-5">
-                <h1 class="fw-bold text-dark mb-0" style="font-size: 1.75rem;">
-                    栄明高等学校 <span class="fw-normal ms-2" style="font-size: 1.5rem;">Panel admin</span>
-                </h1>
-                <p class="text-secondary small mb-0">Eimei Highschool</p>
+            <!-- Header Judul & Tombol Tambah Guru -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <h1 class="fw-bold text-dark mb-0" style="font-size: 1.75rem;">
+                        栄明高等学校 <span class="fw-normal ms-2" style="font-size: 1.5rem;">Kelola Data Guru</span>
+                    </h1>
+                    <p class="text-secondary small mb-0">Eimei Highschool</p>
+                </div>
+                <a href="{{ route('admin.guru.create') }}" class="btn btn-dark rounded-3 px-4 py-2 fw-semibold">
+                    Tambah guru
+                </a>
             </div>
 
             <!-- Alert Notifikasi -->
@@ -83,71 +88,42 @@
                 </div>
             @endif
 
-            <!-- Cards Ringkasan Stat -->
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="stat-card d-flex flex-column justify-content-between">
-                        <span class="fw-bold text-dark fs-5">Jumlah guru</span>
-                        <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">60</div>
-                            <small class="fw-bold text-dark">Guru</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card d-flex flex-column justify-content-between">
-                        <span class="fw-bold text-dark fs-5">Jumlah siswa</span>
-                        <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">1300</div>
-                            <small class="fw-bold text-dark">Siswa</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-card d-flex flex-column justify-content-between">
-                        <span class="fw-bold text-dark fs-5">Jumlah kategori</span>
-                        <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">{{ $totalCategories ?? count($galleries) }}</div>
-                            <small class="fw-bold text-dark">Kategori</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Grid Card Galeri Admin -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold text-dark mb-0">Daftar Galeri</h5>
-                <a href="{{ route('galleries.create') }}" class="btn btn-dark btn-sm rounded-pill px-3">
-                    <i class="bi bi-plus-lg me-1"></i> Tambah Foto
-                </a>
-            </div>
-
+            <!-- Grid Cards Guru -->
             <div class="row g-4">
-                @forelse ($galleries as $item)
+                @forelse ($teachers as $teacher)
                     <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="card admin-gallery-card h-100">
-                            <!-- Image container with category overlay -->
+                        <div class="card admin-gallery-card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
+                            <!-- Foto Guru -->
                             <div class="position-relative">
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="admin-gallery-img" alt="{{ $item->judul }}">
-                                <span class="badge-kategori-overlay position-absolute top-0 end-0 m-2">
-                                    {{ $item->category->nama ?? $item->category->name ?? 'Kategori' }}
+                                @if($teacher->foto)
+                                    <img src="{{ asset('storage/' . $teacher->foto) }}" class="admin-gallery-img w-100" alt="{{ $teacher->nama }}" style="height: 200px; object-fit: cover;">
+                                @else
+                                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center w-100" style="height: 200px;">
+                                        <i class="bi bi-person-fill" style="font-size: 4rem;"></i>
+                                    </div>
+                                @endif
+                                <span class="badge bg-dark position-absolute top-0 end-0 m-2 px-3 py-1 rounded-pill opacity-75 fw-normal" style="font-size: 0.75rem;">
+                                    {{ $teacher->jabatan }}
                                 </span>
                             </div>
                             
                             <!-- Card Body -->
-                            <div class="card-body p-3 d-flex flex-column justify-content-between">
-                                <h6 class="fw-bold text-dark mb-3">{{ $item->judul }}</h6>
+                            <div class="card-body p-3 d-flex flex-column justify-content-between bg-white">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-1">{{ $teacher->nama }}</h6>
+                                    <small class="text-muted d-block mb-3">NIP: {{ $teacher->nip ?? '-' }}</small>
+                                </div>
                                 
                                 <!-- Action Buttons -->
                                 <div class="d-flex gap-2">
-                                    <a href="{{ route('galleries.edit', $item->id) }}" class="btn btn-dark btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-1 py-1">
+                                    <a href="{{ route('admin.guru.edit', $teacher->id) }}" class="btn btn-dark btn-sm flex-grow-1 d-flex align-items-center justify-content-center gap-1 py-1 rounded-2">
                                         <i class="bi bi-pencil-square" style="font-size: 0.8rem;"></i> Ubah
                                     </a>
                                     
-                                    <form action="{{ route('galleries.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?')">
+                                    <form action="{{ route('admin.guru.destroy', $teacher->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data guru ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm px-2 py-1">
+                                        <button type="submit" class="btn btn-danger btn-sm px-2 py-1 rounded-2">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
@@ -157,15 +133,15 @@
                     </div>
                 @empty
                     <div class="col-12 text-center py-5 text-muted">
-                        Belum ada item galeri yang diunggah.
+                        Belum ada data guru.
                     </div>
                 @endforelse
             </div>
 
             <!-- Pagination -->
-            @if (method_exists($galleries, 'hasPages') && $galleries->hasPages())
+            @if (method_exists($teachers, 'hasPages') && $teachers->hasPages())
                 <div class="d-flex justify-content-center mt-5">
-                    {{ $galleries->links('pagination::bootstrap-5') }}
+                    {{ $teachers->links('pagination::bootstrap-5') }}
                 </div>
             @endif
 

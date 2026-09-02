@@ -42,7 +42,7 @@
                         <a href="{{ route('admin.news.index') }}" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
-                        <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href=" {{ route('admin.guru.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person-badge"></i> Guru
                         </a>
                         <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
