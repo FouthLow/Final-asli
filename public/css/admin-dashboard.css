@@ -1,0 +1,79 @@
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e9ecef;
+}
+
+.btn-sidebar-active {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-radius: 6px;
+}
+
+.btn-sidebar-outline {
+    border: 1px solid #000000;
+    color: #000000;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.btn-sidebar-outline:hover {
+    background-color: #f8f9fa;
+    color: #000000;
+}
+
+/* Stat Card Styles */
+.stat-card {
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 1.5rem;
+    min-height: 160px;
+}
+
+/* Gallery Card Styles */
+.admin-gallery-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #e9ecef;
+    border: none;
+}
+
+.admin-gallery-img {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.badge-kategori-overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    padding: 4px 10px;
+}
+
+/* Category Pill Filters (Admin) */
+.btn-category-pill {
+    border: 1px solid #000000;
+    color: #000000;
+    border-radius: 50rem;
+    padding: 6px 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: transparent;
+    text-decoration: none;
+}
+
+.btn-category-pill:hover,
+.btn-category-pill.active {
+    background-color: #000000;
+    color: #ffffff;
+}

@@ -100,4 +100,25 @@ class GalleryController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Foto berhasil dihapus!');
     }
+
+    public function publicIndex(Request $request)
+    {
+        $categories = Category::all();
+
+        $galleries = Gallery::with('category')
+            ->when($request->filled('kategori'), function ($query) use ($request) {
+                $query->whereHas('category', function ($q) use ($request) {
+                    $q->where('slug', $request->kategori);
+                });
+            })
+            ->latest()
+            ->paginate(9); // 9 item per halaman agar sesuai dengan grid 3x3 layout UI
+
+        // Menjaga query string ?kategori= tetap ada saat berpindah halaman pagination
+        $galleries->appends($request->all());
+
+        return view('gallery', compact('galleries', 'categories'));
+    }
+
+    
 }

@@ -1,0 +1,84 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1a1a1a;
+}
+
+/* Navbar Links */
+.nav-link {
+    color: #333333;
+    font-weight: 500;
+}
+.nav-link:hover, .nav-link.active {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Filter Buttons (Pill Style) */
+.btn-pill {
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-pill-active {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+}
+
+.btn-pill-active:hover {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.btn-pill-outline {
+    background-color: #ffffff;
+    color: #333333;
+    border: 1.5px solid #cccccc;
+}
+
+.btn-pill-outline:hover {
+    border-color: #000000;
+    color: #000000;
+}
+
+/* Gallery Card Design */
+.gallery-card {
+    border-radius: 16px;
+    background-color: #f2f2f2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+}
+
+.gallery-card-img {
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* Badge Kategori Hitam Lonjong */
+.badge-category {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 50px;
+    font-weight: 400;
+    font-size: 0.75rem;
+    padding: 6px 16px;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: #000000;
+    color: #ffffff;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}

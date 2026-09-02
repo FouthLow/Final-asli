@@ -6,8 +6,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-// Public Route
+// Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/gallery', [GalleryController::class, 'publicIndex'])->name('gallery.index');
 
 // Guest Auth Routes
 Route::middleware('guest')->group(function () {
@@ -19,13 +20,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [GalleryController::class, 'index'])->name('admin.dashboard');
-    Route::get('/galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
-    Route::post('/galleries', [GalleryController::class, 'store'])->name('galleries.store');
-    Route::get('/galleries/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
-    Route::put('/galleries/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
-    Route::delete('/galleries/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
-
-    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('categories.index');
-    Route::post('/admin/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    
+    // CRUD Galleries (tanpa method index karena index dipake buat dashboard)
+    Route::resource('galleries', GalleryController::class)->except(['index']);
+    
+    // CRUD Categories (otomatis buat route index, store, destroy dll)
+    Route::resource('categories', CategoryController::class);
 });

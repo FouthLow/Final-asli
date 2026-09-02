@@ -3,26 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $categories = Category::all();
-        
-        // Fitur Filter Kategori
-        $query = Gallery::with('category')->latest();
-        
-        if ($request->has('category') && $request->category != '') {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
-        }
+        // Ambil 6 galeri terbaru
+        $galleries = Gallery::with('category')->latest()->take(6)->get();
 
-        $galleries = $query->paginate(12);
-
-        return view('welcome', compact('galleries', 'categories'));
+        return view('welcome', compact('galleries'));
     }
 }

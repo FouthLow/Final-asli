@@ -3,54 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Galeri Sekolah</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin Login - Eimei Highschool</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS Eksternal Login -->
+    <link rel="stylesheet" href="{{ asset('css/login-custom.css') }}">
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body>
 
-    <div class="max-w-md w-full bg-white rounded-xl shadow-md p-8">
-        <!-- Header -->
-        <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">Admin Login</h2>
-            <p class="text-sm text-gray-500 mt-1">Galeri Sekolah</p>
-        </div>
+    <div class="min-vh-100 d-flex align-items-center justify-content-center py-4">
+        <div class="login-wrapper">
+            <div class="row align-items-center g-5">
+                
+                <!-- Gambar Kiri -->
+                <div class="col-md-6 d-none d-md-block">
+                    <img src="{{ asset('storage/images/Piclogin1.png') }}" alt="Eimei Highschool Hero" class="hero-img">
+                </div>
 
-        <!-- Alert Error -->
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
-                {{ $errors->first() }}
+                <!-- Form Login Kanan -->
+                <div class="col-md-6 px-lg-4">
+                    
+                    <div class="mb-4">
+                        <div class="d-flex align-items-baseline gap-2 flex-wrap">
+                            <h2 class="fw-bold mb-0 text-dark" style="font-size: 1.8rem;">栄明高等学校</h2>
+                            <h3 class="fw-normal mb-0 text-dark" style="font-size: 1.8rem;">Admin Login</h3>
+                        </div>
+                        <p class="text-secondary small mb-0 mt-1">Eimei Highschool</p>
+                    </div>
+
+                    <!-- Alert Error -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger rounded-4 py-2 px-3 mb-3 small" role="alert">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        <!-- Input Email -->
+                        <div class="mb-3">
+                            <input type="email" 
+                                   name="email" 
+                                   class="form-control form-control-custom @error('email') is-invalid @enderror" 
+                                   placeholder="Email/Nama Pengguna" 
+                                   value="{{ old('email') }}" 
+                                   required 
+                                   autofocus>
+                        </div>
+
+                        <!-- Input Password -->
+                        <div class="mb-4">
+                            <input type="password" 
+                                   name="password" 
+                                   class="form-control form-control-custom @error('password') is-invalid @enderror" 
+                                   placeholder="Kata Sandi" 
+                                   required>
+                        </div>
+
+                        <!-- Remember Me -->
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <input class="form-check-input form-check-input-custom mt-0" type="checkbox" name="remember" id="remember">
+                            <label class="form-check-label text-secondary small" for="remember" style="cursor: pointer;">
+                                Simpan riwayat masuk
+                            </label>
+                        </div>
+
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-black">Masuk</button>
+                        </div>
+
+                        <div class="text-center">
+                            <small class="text-secondary" style="font-size: 0.8rem;">
+                                *Hubungi pihak terkait untuk meminta akun 
+                                <a href="/" class="text-dark fw-bold text-decoration-underline ms-1">Hubungi</a>
+                            </small>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
-        @endif
-
-        <!-- Form Login -->
-        <form action="{{ route('login') }}" method="POST" class="space-y-4">
-            @csrf
-
-            <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                       placeholder="example@gmail.com">
-            </div>
-
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                       placeholder="••••••••">
-            </div>
-
-            <button type="submit" 
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                Masuk
-            </button>
-        </form>
-
-        <div class="mt-6 text-center">
-            <a href="/" class="text-sm text-indigo-600 hover:underline">← Kembali ke Halaman Utama</a>
         </div>
     </div>
 
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

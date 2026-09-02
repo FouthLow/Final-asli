@@ -11,7 +11,7 @@ class Gallery extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'kategori _id');
+        return $this->belongsTo(Category::class, 'kategori_id');
     }
 
     public function user(): BelongsTo
