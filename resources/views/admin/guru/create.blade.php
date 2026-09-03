@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Guru - Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS Dashboard -->
+    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
 </head>
-<body class="bg-gray-100 min-h-screen p-6">
+<body class="py-5 bg-white">
 
-    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-800">Tambah Data Guru</h2>
-            <a href="{{ route('admin.guru.index') }}" class="text-sm text-gray-500 hover:text-gray-700">← Kembali</a>
+    <div class="container" style="max-width: 900px;">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold mb-0" style="font-size: 1.75rem;">Tambah Data Guru</h1>
+            <a href="{{ route('admin.guru.index') }}" class="btn btn-black px-4 py-2">Kembali</a>
         </div>
 
         @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 text-sm">
-                <ul class="list-disc pl-5">
+            <div class="alert alert-danger mb-4">
+                <ul class="mb-0 ps-3">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -24,48 +28,41 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.guru.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <!-- Form -->
+        <form action="{{ route('admin.guru.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div>
-                <label for="nama" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap Guru</label>
-                <input type="text" id="nama" name="nama" value="{{ old('nama') }}" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                       placeholder="Masukkan nama lengkap beserta gelar...">
+            <div class="mb-4">
+                <label for="nama" class="form-label">Nama Lengkap Guru</label>
+                <input type="text" id="nama" name="nama" value="{{ old('nama') }}" required class="form-control custom-input" placeholder="Masukkan nama lengkap beserta gelar...">
             </div>
 
-            <div>
-                <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP (Tepat 12 Angka)</label>
-                <input type="text" 
-                       id="nip" 
-                       name="nip" 
-                       value="{{ old('nip') }}" 
-                       required
-                       maxlength="12" 
-                       inputmode="numeric" 
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                       placeholder="Contoh: 123456789012">
-                <p class="text-xs text-gray-400 mt-1">Harus berisi tepat 12 digit angka.</p>
+            <div class="mb-4">
+                <label for="nip" class="form-label">NIP (Tepat 12 Angka)</label>
+                <input type="text" id="nip" name="nip" value="{{ old('nip') }}" required maxlength="12" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control custom-input" placeholder="Contoh: 123456789012">
+                <small class="text-muted d-block mt-2">Harus berisi tepat 12 digit angka.</small>
             </div>
 
-            <div>
-                <label for="jabatan" class="block text-sm font-medium text-gray-700 mb-1">Jabatan / Mata Pelajaran</label>
-                <input type="text" id="jabatan" name="jabatan" value="{{ old('jabatan') }}" required 
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                       placeholder="Contoh: Guru Matematika / Kepala Sekolah">
+            <div class="mb-4">
+                <label for="jabatan" class="form-label">Jabatan / Mata Pelajaran</label>
+                <input type="text" id="jabatan" name="jabatan" value="{{ old('jabatan') }}" required class="form-control custom-input" placeholder="Contoh: Guru Matematika / Kepala Sekolah">
             </div>
 
-            <div>
-                <label for="foto" class="block text-sm font-medium text-gray-700 mb-1">Foto Guru</label>
-                <input type="file" id="foto" name="foto" accept="image/*" 
-                       class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                <p class="text-xs text-gray-400 mt-1">Format: JPG, PNG, WEBP (Maksimal 2MB)</p>
+            <!-- Custom File Input -->
+            <div class="mb-5">
+                <label class="form-label">Foto Guru</label>
+                <div class="d-flex align-items-center gap-3 mt-1">
+                    <input type="file" id="foto" name="foto" accept="image/*" class="d-none" onchange="document.getElementById('file-name').textContent = this.files[0] ? this.files[0].name : 'Tidak ada file'">
+                    <label for="foto" class="btn btn-black mb-0 px-4 py-2 cursor-pointer" style="cursor: pointer;">Pilih gambar</label>
+                    <span id="file-name" class="text-secondary fw-medium">Tidak ada file</span>
+                </div>
+                <small class="text-muted d-block mt-2">Format: JPG, PNG, WEBP (Max 2MB)</small>
             </div>
 
-            <div class="pt-4 flex justify-end gap-3">
-                <a href="{{ route('admin.guru.index') }}" class="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50 text-sm font-medium">Batal</a>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium transition">Simpan Data</button>
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-end gap-3 mt-5">
+                <a href="{{ route('admin.guru.index') }}" class="btn btn-black px-4 py-2">Batal</a>
+                <button type="submit" class="btn btn-outline-black px-4 py-2">Simpan Data</button>
             </div>
         </form>
     </div>

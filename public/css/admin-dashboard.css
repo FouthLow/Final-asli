@@ -89,3 +89,49 @@ body {
     border-color: #000000;
     color: #000000;
 }
+
+/* Form & Input Styles (Pembaruan) */
+.custom-input {
+    border-radius: 12px;
+    border: 1px solid #b0b0b0;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+}
+
+.custom-input:focus {
+    border-color: #000000;
+    box-shadow: none;
+    outline: 1px solid #000000;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Form Buttons (Pembaruan) */
+.btn-black {
+    background-color: #000000;
+    color: #ffffff;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btn-black:hover {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.btn-outline-black {
+    border: 1px solid #000000;
+    color: #000000;
+    background: transparent;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btn-outline-black:hover {
+    background-color: #f8f9fa;
+    color: #000000;
+}
