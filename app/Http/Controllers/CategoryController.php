@@ -28,6 +28,20 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255|unique:categories,nama,' . $category->id,
+        ]);
+
+        $category->update([
+            'nama' => $request->nama,
+            'slug' => Str::slug($request->nama),
+        ]);
+
+        return redirect()->back()->with('success', 'Kategori berhasil diperbarui!');
+    }
+
     public function destroy(Category $category)
     {
         $category->delete();

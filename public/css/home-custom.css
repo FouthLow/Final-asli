@@ -63,3 +63,26 @@ body {
     position: relative;
     overflow: hidden;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+.section-margin {
+    margin-bottom: 250px;
+    margin-top: 300px;
+}
+
+.section-margin1 {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.section-margin2 {
+    margin-bottom: 350px;
+    margin-top: 150px;
+}
+
+section[id]{
+    scroll-margin-top: 200px;
+}

@@ -42,5 +42,5 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('galleries', GalleryController::class)->except(['index']);
     
     // CRUD Categories (otomatis buat route index, store, destroy dll)
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->names('admin.categories');
 });

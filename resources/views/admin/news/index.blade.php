@@ -42,10 +42,10 @@
                         <a href="{{ route('admin.news.index') }}" class="btn btn-sidebar-active w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
-                        <a href=" {{ route('admin.guru.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.guru.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person-badge"></i> Guru
                         </a>
-                        <a href=" {{ route('admin.siswa.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.siswa.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person"></i> Siswa
                         </a>
                     </div>
@@ -67,7 +67,7 @@
         <!-- Main Content Area -->
         <main class="flex-grow-1 p-4 p-md-5">
             
-            <!-- Header Judul & Tombol Tambah Berita -->
+            <!-- Header Judul & Tombol Aksi -->
             <div class="d-flex justify-content-between align-items-start mb-4">
                 <div>
                     <h1 class="fw-bold text-dark mb-0" style="font-size: 1.75rem;">
@@ -75,9 +75,15 @@
                     </h1>
                     <p class="text-secondary small mb-0">Eimei Highschool</p>
                 </div>
-                <a href="{{ route('admin.news.create') }}" class="btn btn-dark rounded-3 px-4 py-2 fw-semibold">
-                    Tambah berita
-                </a>
+                <!-- Tombol Kelola Kategori & Tambah Berita -->
+                <div class="d-flex gap-2">
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-dark rounded-3 px-3 py-2 fw-semibold">
+                        <i class="bi bi-tags me-1"></i> Kelola kategori
+                    </a>
+                    <a href="{{ route('admin.news.create') }}" class="btn btn-dark rounded-3 px-4 py-2 fw-semibold">
+                        Tambah berita
+                    </a>
+                </div>
             </div>
 
             <!-- Alert Notifikasi -->
@@ -90,7 +96,7 @@
 
             <!-- Filter Kategori (Pill Buttons Custom) -->
             @if (isset($categories) && count($categories) > 0)
-                <div class="d-flex flex-wrap gap-2 mb-4">
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-4">
                     <a href="{{ route('admin.news.index') }}" 
                     class="btn btn-pill {{ !request('kategori') ? 'btn-pill-active' : 'btn-pill-outline' }}">
                         Semua foto

@@ -12,7 +12,7 @@
 <body class="bg-white min-vh-100 d-flex flex-column">
 
     <!-- Header / Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white py-3">
+    <nav class="navbar navbar-expand-lg bg-white py-3 sticky-top border-bottom">
         <div class="container">
             <a class="navbar-brand d-flex flex-column" href="{{ url('/') }}">
                 <span class="fw-bold text-dark lh-1" style="font-size: 1.25rem;">栄明高等学校</span>
@@ -25,9 +25,9 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav gap-4">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Akademik</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/#beranda') }}">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/#tentang-kami') }}">Tentang Kami</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/#akademik') }}">Akademik</a></li>
                     <li class="nav-item"><a class="nav-link active" href="{{ route('gallery.index') }}">Galeri</a></li>
                 </ul>
             </div>
@@ -93,45 +93,39 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="footer-section pt-5 pb-4">
+<!-- Footer -->
+    <footer class="footer-section pt-5 pb-4 mt-5">
         <div class="container">
-            <div class="row g-4 mb-5">
-                <div class="col-md-6">
+            <!-- Tambahkan justify-content-between agar kolom terdorong ke ujung kanan -->
+            <div class="row g-4 mb-5 justify-content-between">
+                
+                <!-- Kolom Kiri (Logo & Deskripsi) -->
+                <div class="col-md-5">
                     <h3 class="fw-bold mb-0">栄明高等学校</h3>
                     <p class="text-white-50 small mb-3">Eimei Highschool</p>
                     <p class="text-white-50 small pe-md-5">
                         Membentuk Generasi Berprestasi dalam Akademik dan Olahraga.
                     </p>
                 </div>
+
                 <div class="col-6 col-md-3">
                     <h6 class="fw-bold mb-3">Navigasi</h6>
                     <ul class="list-unstyled small text-white-50">
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Tentang Kami</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Kegiatan Sekolah</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Olahraga</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Berita</a></li>
+                        <li class="mb-2"><a href="{{ url('/#tentang-kami') }}" class="text-white-50 text-decoration-none">Tentang Kami</a></li>
+                        <li class="mb-2"><a href="#galeri" class="text-white-50 text-decoration-none">Kegiatan Sekolah</a></li>
+                        <li class="mb-2"><a href="{{ url('/#akademik') }}" class="text-white-50 text-decoration-none">Olahraga</a></li>
                     </ul>
                 </div>
-                <div class="col-6 col-md-3">
-                    <h6 class="fw-bold mb-3">Program</h6>
-                    <ul class="list-unstyled small text-white-50">
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Inter-High Atletik</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Klub Bulu Tangkis</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Klub Bola Basket</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Senam Artistik</a></li>
-                    </ul>
-                </div>
-            </div>
+
+            </div> <!-- Tag penutup row yang tadi hilang -->
 
             <hr class="border-secondary my-4">
 
             <div class="small text-white-50">
-                &copy; {{ date('Y') }} Eimei High School. Hak Cipta Dilindungi Undang-Undang.
+                &copy; {{ date('Y') }} Eimei Highschool. Hak Cipta Dilindungi Undang-Undang.
             </div>
         </div>
     </footer>
-
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

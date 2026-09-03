@@ -12,10 +12,10 @@
 </head>
 <body class="bg-white">
 
-    <!-- Header / Navbar -->
-    <nav class="navbar navbar-expand-lg bg-white py-3">
+    <!-- Header / Navbar Sticky -->
+    <nav class="navbar navbar-expand-lg bg-white py-3 sticky-top border-bottom">
         <div class="container">
-            <a class="navbar-brand d-flex flex-column" href="{{ url('/') }}">
+            <a class="navbar-brand d-flex flex-column" href="#beranda">
                 <span class="fw-bold text-dark lh-1" style="font-size: 1.25rem;">栄明高等学校</span>
                 <small class="text-secondary" style="font-size: 0.75rem;">Eimei Highschool</small>
             </a>
@@ -26,9 +26,9 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav gap-3">
-                    <li class="nav-item"><a class="nav-link active" href="{{ url('/') }}">Beranda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tentang Kami</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Akademik</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tentang-kami">Tentang Kami</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#akademik">Akademik</a></li>
                     <li class="nav-item"><a class="nav-link" href="#galeri">Galeri</a></li>
                 </ul>
             </div>
@@ -38,7 +38,7 @@
     <div class="container my-3">
         
         <!-- Hero Section Banner -->
-        <section class="hero-section d-flex align-items-center px-4 px-md-5 text-white">
+        <section id="beranda" class="hero-section d-flex align-items-center px-4 px-md-5 text-white">
             <div style="max-width: 500px;">
                 <h1 class="fw-bold mb-3 display-6">Temukan Potensi Akademik dan Olahragamu.</h1>
                 <p class="small text-light mb-0" style="opacity: 0.9;">
@@ -47,8 +47,8 @@
             </div>
         </section>
 
-        <!-- About Showcase Section -->
-        <section class="py-5 my-4">
+        <!-- About Showcase Section (Tentang Kami) -->
+        <section id="tentang-kami" class="section-margin">
             <div class="row align-items-center g-4">
                 <div class="col-md-5">
                     <img src="{{ asset('storage/images/Pic2.png') }}" alt="Badminton Player" class="img-fluid rounded-4 img-cover shadow-sm" style="height: 480px;">
@@ -58,7 +58,7 @@
                     <p class="text-secondary small mb-4">
                         Membuka potensi terbaik setiap siswa melalui lingkungan belajar yang suportif dan penuh tantangan. Kami hadir demi mencetak sumber daya akademis unggul dan pembawa prestasi melalui pembinaan berorientasi kompetisi, mandiri, berkarakter, dan meraih impian.
                     </p>
-                    <a href="#" class="btn btn-black-pill">
+                    <a href="#akademik-desc" class="btn btn-black-pill">
                         Pelajari Lebih Lanjut <i class="bi bi-arrow-up-right ms-1"></i>
                     </a>
                 </div>
@@ -66,7 +66,7 @@
         </section>
 
         <!-- Grid 4 Foto Cabang Olahraga -->
-        <section class="py-3 mb-5">
+        <section id="akademik" class="section-margin1">
             <div class="row g-3">
                 <div class="col-6 col-md-3">
                     <img src="{{ asset('storage/images/sport2.jpg') }}" class="img-fluid rounded-4 img-cover" style="height: 360px;" alt="Sports 1">
@@ -83,8 +83,8 @@
             </div>
         </section>
 
-        <!-- Program Siswa Section -->
-        <section class="py-4 mb-5">
+        <!-- Program Siswa Section (Akademik) -->
+        <section id="akademik-desc" class="section-margin2">
             <div class="row align-items-center g-4">
                 <div class="col-md-6">
                     <h2 class="fw-bold text-dark mb-4">Program siswa<br>yang dapat Anda ikuti.</h2>
@@ -111,7 +111,7 @@
             </div>
         </section>
 
-<!-- Section Galeri Kegiatan Terbaru -->
+        <!-- Section Galeri Kegiatan Terbaru -->
         <section id="galeri" class="py-4 mb-4">
             <h3 class="fw-bold text-dark mb-4">Galeri kegiatan</h3>
 
@@ -119,7 +119,6 @@
             <div class="row g-4">
                 @forelse ($galleries->take(3) as $item)
                     <div class="col-md-4">
-                        <!-- Bungkus card dengan tag <a> dan arahkan ke route detail -->
                         <a href="{{ route('gallery.show', $item->id) }}" class="text-decoration-none">
                             <div class="card border-0 rounded-4 overflow-hidden shadow-sm gallery-card h-100 bg-light">
                                 <div class="position-relative">
@@ -149,36 +148,33 @@
             </div>
         </section>
 
-    <!-- Footer -->
+    </div>
+
+<!-- Footer -->
     <footer class="footer-section pt-5 pb-4 mt-5">
         <div class="container">
-            <div class="row g-4 mb-5">
-                <div class="col-md-6">
+            <!-- Tambahkan justify-content-between agar kolom terdorong ke ujung kanan -->
+            <div class="row g-4 mb-5 justify-content-between">
+                
+                <!-- Kolom Kiri (Logo & Deskripsi) -->
+                <div class="col-md-5">
                     <h3 class="fw-bold mb-0">栄明高等学校</h3>
                     <p class="text-white-50 small mb-3">Eimei Highschool</p>
                     <p class="text-white-50 small pe-md-5">
                         Membentuk Generasi Berprestasi dalam Akademik dan Olahraga.
                     </p>
                 </div>
+
                 <div class="col-6 col-md-3">
                     <h6 class="fw-bold mb-3">Navigasi</h6>
-                    <ul class="list-unstyled small text-white-50 space-y-2">
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Tentang Kami</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Kegiatan Sekolah</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Olahraga</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Berita</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                    <h6 class="fw-bold mb-3">Program</h6>
                     <ul class="list-unstyled small text-white-50">
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Intensif Atletik</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Klub Bulu Tangkis</a></li>
-                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Klub Bola Basket</a></li>
-                        <li><a href="#" class="text-white-50 text-decoration-none">Senam Artistik</a></li>
+                        <li class="mb-2"><a href="#tentang-kami" class="text-white-50 text-decoration-none">Tentang Kami</a></li>
+                        <li class="mb-2"><a href="#galeri" class="text-white-50 text-decoration-none">Kegiatan Sekolah</a></li>
+                        <li class="mb-2"><a href="#akademik" class="text-white-50 text-decoration-none">Olahraga</a></li>
                     </ul>
                 </div>
-            </div>
+
+            </div> <!-- Tag penutup row yang tadi hilang -->
 
             <hr class="border-secondary my-4">
 
