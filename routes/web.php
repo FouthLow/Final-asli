@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/gallery', [GalleryController::class, 'publicIndex'])->name('gallery.index');
+Route::get('/gallery/{id}', [GalleryController::class, 'show'])->name('gallery.show');
 
 // Guest Auth Routes
 Route::middleware('guest')->group(function () {

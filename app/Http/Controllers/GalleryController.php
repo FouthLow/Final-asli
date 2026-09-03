@@ -120,4 +120,10 @@ class GalleryController extends Controller
 
         return view('gallery', compact('galleries', 'categories'));
     }
+
+    public function show($id)
+    {
+        $gallery = Gallery::with('category')->findOrFail($id);
+        return view('gallery.show', compact('gallery'));
+    }
 }

@@ -111,25 +111,28 @@
             </div>
         </section>
 
-        <!-- Section Galeri Kegiatan Terbaru -->
+<!-- Section Galeri Kegiatan Terbaru -->
         <section id="galeri" class="py-4 mb-4">
             <h3 class="fw-bold text-dark mb-4">Galeri kegiatan</h3>
 
             <!-- Dynamic Gallery Cards (Terbaru) -->
             <div class="row g-4">
-                @forelse ($galleries as $item)
+                @forelse ($galleries->take(3) as $item)
                     <div class="col-md-4">
-                        <div class="card border-0 rounded-4 overflow-hidden shadow-sm gallery-card h-100 bg-light">
-                            <div class="position-relative">
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top img-cover" style="height: 200px;" alt="{{ $item->judul }}">
-                                <span class="badge bg-black position-absolute top-0 end-0 m-3 px-3 py-1 rounded-pill fw-normal" style="font-size: 0.75rem;">
-                                    {{ $item->category->nama ?? $item->category->name ?? '-' }}
-                                </span>
+                        <!-- Bungkus card dengan tag <a> dan arahkan ke route detail -->
+                        <a href="{{ route('gallery.show', $item->id) }}" class="text-decoration-none">
+                            <div class="card border-0 rounded-4 overflow-hidden shadow-sm gallery-card h-100 bg-light">
+                                <div class="position-relative">
+                                    <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top img-cover" style="height: 200px;" alt="{{ $item->judul }}">
+                                    <span class="badge bg-black position-absolute top-0 end-0 m-3 px-3 py-1 rounded-pill fw-normal" style="font-size: 0.75rem;">
+                                        {{ $item->category->nama ?? $item->category->name ?? '-' }}
+                                    </span>
+                                </div>
+                                <div class="card-body p-3">
+                                    <h6 class="card-title fw-bold text-dark mb-1">{{ $item->judul }}</h6>
+                                </div>
                             </div>
-                            <div class="card-body p-3">
-                                <h6 class="card-title fw-bold text-dark mb-1">{{ $item->judul }}</h6>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 @empty
                     <div class="col-12 text-center py-5 text-muted">
@@ -145,7 +148,6 @@
                 </a>
             </div>
         </section>
-    </div>
 
     <!-- Footer -->
     <footer class="footer-section pt-5 pb-4 mt-5">

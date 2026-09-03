@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Kegiatan - Eimei Highschool</title>
+    <title>{{ $gallery->judul }} - Eimei Highschool</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CSS Eksternal Galeri -->
-    <link rel="stylesheet" href="{{ asset('css/gallery-custom.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- CSS Eksternal (Menyesuaikan dengan styling beranda/galeri) -->
+    <link rel="stylesheet" href="{{ asset('css/home-custom.css') }}">
 </head>
 <body class="bg-white min-vh-100 d-flex flex-column">
 
@@ -37,64 +38,44 @@
     <!-- Content Utama -->
     <main class="container py-4 flex-grow-1">
         
-        <!-- Judul Halaman Centered -->
-        <div class="text-center my-4">
-            <h2 class="fw-bold text-dark mb-1" style="font-size: 2rem;">Galeri kegiatan</h2>
-            <h1 class="fw-bold text-dark mb-0" style="font-size: 2.2rem;">栄明高等学校</h1>
-            <p class="text-secondary small mt-1">Eimei Highschool</p>
-        </div>
-
-        <!-- Filter Kategori Tombol Oval -->
-        <div class="d-flex justify-content-center flex-wrap gap-3 my-5">
-            <a href="{{ route('gallery.index') }}" 
-               class="btn btn-pill {{ !request('kategori') ? 'btn-pill-active' : 'btn-pill-outline' }} text-decoration-none">
-                Semua foto
+        <!-- Tombol Kembali ke Halaman Galeri -->
+        <div class="mb-4">
+            <a href="{{ route('gallery.index') }}" class="btn btn-black-pill px-4 py-2 text-decoration-none">
+                Kembali
             </a>
-            @foreach ($categories as $cat)
-                <a href="{{ route('gallery.index', ['kategori' => $cat->slug]) }}" 
-                   class="btn btn-pill {{ request('kategori') == $cat->slug ? 'btn-pill-active' : 'btn-pill-outline' }} text-decoration-none">
-                    {{ $cat->nama ?? $cat->name }}
-                </a>
-            @endforeach
         </div>
 
-        <!-- Grid Cards Galeri (3 Kolom Per Baris) -->
-        <div class="row g-4 mb-5">
-            @forelse ($galleries as $item)
-                <div class="col-md-4">
-                    <!-- Bungkus card dengan tag <a> agar bisa diklik -->
-                    <a href="{{ route('gallery.show', $item->id) }}" class="text-decoration-none">
-                        <div class="card border-0 gallery-card overflow-hidden shadow-sm h-100">
-                            <div class="position-relative">
-                                <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top gallery-card-img" alt="{{ $item->judul }}">
-                                <span class="badge badge-category position-absolute top-0 end-0 m-3">
-                                    {{ $item->category->nama ?? $item->category->name ?? 'Kategori' }}
-                                </span>
-                            </div>
-                            <div class="card-body p-3">
-                                <h6 class="card-title fw-bold text-dark mb-0">{{ $item->judul }}</h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            @empty
-                <div class="col-12 text-center py-5">
-                    <p class="text-muted fw-semibold">Belum ada dokumentasi untuk kategori ini.</p>
-                </div>
-            @endforelse
-        </div>
-
-        <!-- Pagination -->
-        @if ($galleries->hasPages())
-            <div class="d-flex justify-content-center mb-5">
-                {{ $galleries->links() }}
+        <!-- Detail Layout (Gambar di Kiri, Informasi di Kanan) -->
+        <div class="row g-5 align-items-start my-3">
+            <!-- Kolom Gambar -->
+            <div class="col-md-6">
+                <img src="{{ asset('storage/' . $gallery->gambar) }}" alt="{{ $gallery->judul }}" class="img-fluid rounded-4 w-100 shadow-sm object-fit-cover" style="height: 450px;">
             </div>
-        @endif
+
+            <!-- Kolom Detail Teks -->
+            <div class="col-md-6">
+                <!-- Badge Kategori (Gaya Hitam Pill) -->
+                <div class="mb-3">
+                    <span class="badge bg-black px-3 py-2 rounded-pill fw-normal" style="font-size: 0.8rem;">
+                        {{ $gallery->category->nama ?? $gallery->category->name ?? 'Semua foto' }}
+                    </span>
+                </div>
+
+                <!-- Judul -->
+                <h1 class="fw-bold text-dark mb-1" style="font-size: 2.2rem;">{{ $gallery->judul }}</h1>
+                <p class="text-secondary small mb-4">Di unggah pada {{ $gallery->created_at->format('d M Y') }}</p>
+
+                <!-- Deskripsi -->
+                <div class="text-secondary lh-lg">
+                    <p class="mb-0">{{ $gallery->deskripsi ?? 'Deskripsi kegiatan belum ditambahkan.' }}</p>
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="footer-section pt-5 pb-4">
+    <footer class="footer-section pt-5 pb-4 mt-5">
         <div class="container">
             <div class="row g-4 mb-5">
                 <div class="col-md-6">
