@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\KelasController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -23,6 +25,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [GalleryController::class, 'index'])->name('admin.dashboard');
 
+    // CRUD Siswa
+    Route::resource('siswa', SiswaController::class)->names('admin.siswa');
+    
+    // CRUD Kelas
+    Route::resource('kelas', KelasController::class)->names('admin.kelas');
+
+    // CRUD News
     Route::resource('news', NewsController::class)->names('admin.news');
 
     // CRUD Guru

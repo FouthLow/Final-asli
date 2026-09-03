@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use App\Models\Category;
+use App\Models\Guru;  // Tambahkan import Guru
+use App\Models\Siswa; // Tambahkan import Siswa
+use App\Models\Kelas; // Tambahkan import Kelas
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,11 +14,21 @@ class GalleryController extends Controller
 {
     public function index()
     {
+        // Data Galeri & Kategori bawaan aslimu
         $galleries = Gallery::with('category')->latest()->paginate(10);
         $totalGalleries = Gallery::count();
         $totalCategories = Category::count();
 
-        return view('admin.dashboard', compact('galleries', 'totalGalleries', 'totalCategories'));
+        // Tambahan data dinamis untuk 3 kartu di Dashboard
+        $totalGuru = Guru::count();
+        $totalSiswa = Siswa::count();
+        $totalKelas = Kelas::count();
+
+        // Masukkan variabel baru ke dalam compact()
+        return view('admin.dashboard', compact(
+            'galleries', 'totalGalleries', 'totalCategories', 
+            'totalGuru', 'totalSiswa', 'totalKelas'
+        ));
     }
 
     public function create()
@@ -26,18 +39,15 @@ class GalleryController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi Input (Pastikan nama key sama persis dengan atribut 'name' di form HTML)
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori_id' => 'required|exists:categories,id', // Perbaikan typo 'ketegori_id'
+            'kategori_id' => 'required|exists:categories,id',
             'deskripsi' => 'nullable|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // 2. Upload Gambar (Ambil input 'gambar')
         $imagePath = $request->file('gambar')->store('galleries', 'public');
 
-        // 3. Simpan ke Database
         Gallery::create([
             'judul' => $request->judul,
             'kategori_id' => $request->kategori_id,
@@ -49,17 +59,14 @@ class GalleryController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Foto berhasil ditambahkan!');
     }
 
-    // 5. Form Edit Foto
     public function edit(Gallery $gallery)
     {
         $categories = Category::all();
         return view('admin.galleries.edit', compact('gallery', 'categories'));
     }
 
-    // 6. Proses Update Foto
     public function update(Request $request, Gallery $gallery)
     {
-        // Validasi input (gambar jadi opsional/nullable pas edit)
         $request->validate([
             'judul' => 'required|string|max:255',
             'kategori_id' => 'required|exists:categories,id',
@@ -73,14 +80,10 @@ class GalleryController extends Controller
             'deskripsi' => $request->deskripsi,
         ];
 
-        // Jika user mengunggah gambar baru
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama dari storage
             if ($gallery->gambar && Storage::disk('public')->exists($gallery->gambar)) {
                 Storage::disk('public')->delete($gallery->gambar);
             }
-
-            // Upload gambar baru
             $data['gambar'] = $request->file('gambar')->store('galleries', 'public');
         }
 
@@ -91,7 +94,6 @@ class GalleryController extends Controller
 
     public function destroy(Gallery $gallery)
     {
-        // Sesuaikan dengan nama kolom database ($gallery->gambar)
         if ($gallery->gambar && Storage::disk('public')->exists($gallery->gambar)) {
             Storage::disk('public')->delete($gallery->gambar);
         }
@@ -112,13 +114,10 @@ class GalleryController extends Controller
                 });
             })
             ->latest()
-            ->paginate(9); // 9 item per halaman agar sesuai dengan grid 3x3 layout UI
+            ->paginate(9);
 
-        // Menjaga query string ?kategori= tetap ada saat berpindah halaman pagination
         $galleries->appends($request->all());
 
         return view('gallery', compact('galleries', 'categories'));
     }
-
-    
 }

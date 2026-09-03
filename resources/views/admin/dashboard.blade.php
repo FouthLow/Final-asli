@@ -39,13 +39,13 @@
                 <div class="mb-4">
                     <div class="text-dark fw-bold mb-3" style="font-size: 1.05rem;">Konten</div>
                     <div class="d-flex flex-column gap-2">
-                        <a href=" {{ route('admin.news.index') }} " class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.news.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-newspaper"></i> Berita
                         </a>
-                        <a href=" {{ route('admin.guru.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.guru.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person-badge"></i> Guru
                         </a>
-                        <a href="#" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
+                        <a href="{{ route('admin.siswa.index') }}" class="btn btn-sidebar-outline w-100 text-start py-2 px-3 fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-person"></i> Siswa
                         </a>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="stat-card d-flex flex-column justify-content-between">
                         <span class="fw-bold text-dark fs-5">Jumlah guru</span>
                         <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">60</div>
+                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">{{ $totalGuru ?? 0 }}</div>
                             <small class="fw-bold text-dark">Guru</small>
                         </div>
                     </div>
@@ -98,17 +98,17 @@
                     <div class="stat-card d-flex flex-column justify-content-between">
                         <span class="fw-bold text-dark fs-5">Jumlah siswa</span>
                         <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">1300</div>
+                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">{{ $totalSiswa ?? 0 }}</div>
                             <small class="fw-bold text-dark">Siswa</small>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="stat-card d-flex flex-column justify-content-between">
-                        <span class="fw-bold text-dark fs-5">Jumlah kategori</span>
+                        <span class="fw-bold text-dark fs-5">Jumlah kelas</span>
                         <div class="text-center my-2">
-                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">{{ $totalCategories ?? count($galleries) }}</div>
-                            <small class="fw-bold text-dark">Kategori</small>
+                            <div class="fw-bold text-dark" style="font-size: 3rem; line-height: 1;">{{ $totalKelas ?? 0 }}</div>
+                            <small class="fw-bold text-dark">Kelas</small>
                         </div>
                     </div>
                 </div>

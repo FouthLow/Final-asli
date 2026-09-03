@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Tentang Kami</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Akademik</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{{ route('gallery.index') }}">Kontak</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('gallery.index') }}">Galeri</a></li>
                 </ul>
             </div>
         </div>
