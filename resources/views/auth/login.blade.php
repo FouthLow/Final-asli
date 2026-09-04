@@ -73,10 +73,11 @@
                             <button type="submit" class="btn btn-black">Masuk</button>
                         </div>
 
+                        <!-- Tautan ke Halaman Contact -->
                         <div class="text-center">
                             <small class="text-secondary" style="font-size: 0.8rem;">
                                 *Hubungi pihak terkait untuk meminta akun 
-                                <a href="/" class="text-dark fw-bold text-decoration-underline ms-1">Hubungi</a>
+                                <a href="{{ route('contact') }}" class="text-dark fw-bold text-decoration-underline ms-1">Hubungi</a>
                             </small>
                         </div>
 
